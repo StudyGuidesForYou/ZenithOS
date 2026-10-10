@@ -1,0 +1,896 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+    --font-heading: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+    --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+    margin: 0;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body;
+    background: #05030f;
+    overscroll-behavior: none;
+  }
+}
+
+@layer components {
+  /* ------------------------------------------------------------------ *
+   * ZenithOS materials — liquid glass. Every surface is themed through
+   * these variables, so themes and the "reduce transparency" setting
+   * repaint the whole shell at once. The glass uses layered specular
+   * highlights, chromatic edge refraction and an animated sheen to
+   * approximate the way real frosted glass catches and bends light.
+   * ------------------------------------------------------------------ */
+  .zenith-root {
+    --z-menubar: 30px;
+    --z-dock: 88px;
+    --z-scale: 1;
+    --z-accent: 270 91% 66%;
+    --z-light: 320deg;
+    --z-glass-tier: 1;
+
+    --z-surface: 248 30% 8% / 0.5;
+    --z-surface-strong: 248 32% 10% / 0.72;
+    --z-surface-soft: 0 0% 100% / 0.06;
+    --z-surface-solid: 248 30% 9%;
+    --z-border: 0 0% 100% / 0.1;
+    --z-border-strong: 0 0% 100% / 0.2;
+    --z-hi: 0 0% 100% / 0.16;
+    --z-text: 0 0% 100%;
+    --z-text-dim: 0 0% 100% / 0.62;
+    --z-shadow: 0 40px 90px -32px rgb(3 2 14 / 0.8);
+    --z-shadow-sm: 0 16px 38px -18px rgb(3 2 14 / 0.62);
+    --z-shadow-menu: 0 22px 48px -16px rgb(3 2 14 / 0.72);
+    --z-blur: 40px;
+    --z-blur-strong: 60px;
+    --z-saturate: 190%;
+
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    color: hsl(var(--z-text));
+    font-family: var(--font-body);
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  .zenith-root[data-theme='light'] {
+    --z-surface: 0 0% 100% / 0.6;
+    --z-surface-strong: 0 0% 100% / 0.8;
+    --z-surface-soft: 250 30% 20% / 0.06;
+    --z-surface-solid: 0 0% 100%;
+    --z-border: 0 0% 0% / 0.08;
+    --z-border-strong: 0 0% 0% / 0.16;
+    --z-hi: 0 0% 100% / 0.85;
+    --z-text: 250 32% 12%;
+    --z-text-dim: 250 22% 24% / 0.62;
+    --z-shadow: 0 40px 90px -36px rgb(48 32 92 / 0.42);
+    --z-shadow-sm: 0 16px 38px -20px rgb(48 32 92 / 0.34);
+    --z-shadow-menu: 0 22px 48px -20px rgb(48 32 92 / 0.4);
+  }
+
+  /* glass quality tiers drive blur, saturation and the refraction edge */
+  .zenith-root[data-glass='standard'] {
+    --z-blur: 24px;
+    --z-blur-strong: 36px;
+    --z-saturate: 160%;
+    --z-glass-tier: 0;
+  }
+  .zenith-root[data-glass='high'] {
+    --z-blur: 40px;
+    --z-blur-strong: 60px;
+    --z-saturate: 190%;
+    --z-glass-tier: 1;
+  }
+  .zenith-root[data-glass='ultra'] {
+    --z-blur: 60px;
+    --z-blur-strong: 90px;
+    --z-saturate: 220%;
+    --z-glass-tier: 2;
+  }
+
+  .zenith-root[data-transparency='off'] .z-glass,
+  .zenith-root[data-transparency='off'] .z-glass-strong,
+  .zenith-root[data-transparency='off'] .z-glass-soft,
+  .zenith-root[data-transparency='off'] .z-widget {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: hsl(var(--z-surface-solid) / 0.97);
+  }
+
+  /* custom pointer */
+  .zenith-root[data-cursor] {
+    cursor: var(--z-cursor), auto;
+  }
+  .zenith-root[data-cursor] button,
+  .zenith-root[data-cursor] a,
+  .zenith-root[data-cursor] [role='button'],
+  .zenith-root[data-cursor] .z-pressable {
+    cursor: var(--z-cursor), pointer;
+  }
+  .zenith-root[data-cursor] input,
+  .zenith-root[data-cursor] textarea {
+    cursor: var(--z-cursor), text;
+  }
+
+  .zenith-root h1,
+  .zenith-root h2,
+  .zenith-root h3,
+  .zenith-root .z-display {
+    font-family: var(--font-heading);
+    letter-spacing: -0.015em;
+  }
+
+  .zenith-root ::selection {
+    background: hsl(var(--z-accent) / 0.32);
+  }
+
+  .z-text {
+    color: hsl(var(--z-text));
+  }
+
+  .z-dim {
+    color: hsl(var(--z-text-dim));
+  }
+
+  /* ---------- materials ----------
+   * Layered recipe:
+   *  1. a vertical body gradient (the frosted tint)
+   *  2. a specular highlight following the virtual light angle
+   *  3. a chromatic edge via inset box-shadows (cool on one side, warm
+   *     on the other) to fake light refraction at the rim
+   *  4. a hairline top highlight so the surface reads as glossy
+   */
+  .z-glass {
+    position: relative;
+    background:
+      linear-gradient(155deg, hsl(0 0% 100% / 0.1) 0%, hsl(0 0% 100% / 0.02) 30%, transparent 55%),
+      linear-gradient(var(--z-light), hsl(0 0% 100% / 0.07), transparent 42%),
+      hsl(var(--z-surface));
+    backdrop-filter: blur(var(--z-blur)) saturate(var(--z-saturate)) brightness(1.04);
+    -webkit-backdrop-filter: blur(var(--z-blur)) saturate(var(--z-saturate)) brightness(1.04);
+    border: 1px solid transparent;
+    border-radius: 0.75rem;
+    box-shadow:
+      var(--z-shadow),
+      inset 0 1px 0 0 hsl(var(--z-hi)),
+      inset 0 -1px 0 0 hsl(0 0% 0% / 0.18),
+      inset 1px 0 0 0 hsl(200 90% 60% / 0.06),
+      inset -1px 0 0 0 hsl(20 90% 60% / 0.05);
+  }
+
+  /* the refraction edge: a gradient border that separates cool/warm light */
+  .z-glass::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      var(--z-light),
+      hsl(0 0% 100% / 0.5),
+      hsl(200 90% 60% / 0.18) 38%,
+      hsl(0 0% 0% / 0.12) 60%,
+      hsl(20 90% 60% / 0.22)
+    );
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* moving specular sheen across the surface */
+  .z-glass::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background: linear-gradient(120deg, transparent 30%, hsl(0 0% 100% / 0.08) 45%, transparent 60%);
+    opacity: 0.7;
+    z-index: 0;
+  }
+
+  .z-glass-strong {
+    position: relative;
+    background:
+      linear-gradient(155deg, hsl(0 0% 100% / 0.13) 0%, hsl(0 0% 100% / 0.03) 32%, transparent 58%),
+      linear-gradient(var(--z-light), hsl(0 0% 100% / 0.1), transparent 46%),
+      hsl(var(--z-surface-strong));
+    backdrop-filter: blur(var(--z-blur-strong)) saturate(var(--z-saturate)) brightness(1.05);
+    -webkit-backdrop-filter: blur(var(--z-blur-strong)) saturate(var(--z-saturate)) brightness(1.05);
+    border: 1px solid transparent;
+    border-radius: 0.75rem;
+    box-shadow:
+      var(--z-shadow-menu),
+      inset 0 1px 0 0 hsl(var(--z-hi)),
+      inset 0 -1px 0 0 hsl(0 0% 0% / 0.2),
+      inset 1px 0 0 0 hsl(200 90% 60% / 0.08),
+      inset -1px 0 0 0 hsl(20 90% 60% / 0.07);
+  }
+
+  .z-glass-strong::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      var(--z-light),
+      hsl(0 0% 100% / 0.6),
+      hsl(200 90% 60% / 0.24) 38%,
+      hsl(0 0% 0% / 0.14) 60%,
+      hsl(20 90% 60% / 0.28)
+    );
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .z-glass-soft {
+    position: relative;
+    background: hsl(var(--z-surface-soft));
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid hsl(var(--z-border));
+  }
+
+  /* menu bar + dock: full-width bars with a hairline edge */
+  .z-menubar {
+    background: hsl(var(--z-surface) / 0.92);
+    backdrop-filter: blur(var(--z-blur)) saturate(var(--z-saturate));
+    -webkit-backdrop-filter: blur(var(--z-blur)) saturate(var(--z-saturate));
+    border-bottom: 1px solid hsl(var(--z-border));
+    box-shadow: 0 10px 30px -22px rgb(3 2 14 / 0.7);
+  }
+
+  .z-dockbar {
+    position: relative;
+    background:
+      linear-gradient(180deg, hsl(0 0% 100% / 0.14), hsl(0 0% 100% / 0.04)),
+      hsl(var(--z-surface-strong));
+    backdrop-filter: blur(var(--z-blur-strong)) saturate(var(--z-saturate)) brightness(1.05);
+    -webkit-backdrop-filter: blur(var(--z-blur-strong)) saturate(var(--z-saturate)) brightness(1.05);
+    border: 1px solid hsl(var(--z-border));
+    box-shadow: var(--z-shadow), inset 0 1px 0 0 hsl(var(--z-hi));
+  }
+  .z-dockbar::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(var(--z-light), hsl(0 0% 100% / 0.5), transparent 50%, hsl(20 90% 60% / 0.2));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .z-widget {
+    position: relative;
+    background:
+      linear-gradient(155deg, hsl(0 0% 100% / 0.1), transparent 50%),
+      hsl(var(--z-surface-strong));
+    backdrop-filter: blur(var(--z-blur-strong)) saturate(var(--z-saturate));
+    -webkit-backdrop-filter: blur(var(--z-blur-strong)) saturate(var(--z-saturate));
+    border: 1px solid transparent;
+    border-radius: 1.25rem;
+    box-shadow: var(--z-shadow-sm), inset 0 1px 0 0 hsl(var(--z-hi));
+  }
+  .z-widget::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(var(--z-light), hsl(0 0% 100% / 0.4), transparent 55%, hsl(200 90% 60% / 0.16));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .z-sheen {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .z-sheen::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background: linear-gradient(
+      142deg,
+      hsl(0 0% 100% / 0.14) 0%,
+      hsl(0 0% 100% / 0.02) 36%,
+      hsl(0 0% 100% / 0) 58%,
+      hsl(0 0% 100% / 0.06) 100%
+    );
+  }
+
+  /* ---------- accent ---------- */
+  .z-accent-bg {
+    background: hsl(var(--z-accent));
+    color: #fff;
+  }
+
+  .z-accent-text {
+    color: hsl(var(--z-accent));
+  }
+
+  .z-accent-soft {
+    background: hsl(var(--z-accent) / 0.2);
+    border-color: hsl(var(--z-accent) / 0.45);
+    color: hsl(var(--z-text));
+  }
+
+  .z-accent-ring {
+    box-shadow: 0 0 0 2px hsl(var(--z-accent) / 0.55);
+  }
+
+  .z-glow {
+    box-shadow: 0 0 0 1px hsl(var(--z-accent) / 0.3), 0 14px 44px -10px hsl(var(--z-accent) / 0.55);
+  }
+
+  /* ---------- interaction ---------- */
+  .z-hoverable {
+    transition: background-color 0.16s ease, transform 0.16s ease, border-color 0.16s ease,
+      box-shadow 0.22s ease, color 0.16s ease, opacity 0.16s ease;
+  }
+
+  .z-hoverable:hover {
+    background-color: hsl(var(--z-surface-soft));
+  }
+
+  .z-pressable {
+    transition: transform 0.12s ease;
+  }
+
+  .z-pressable:active {
+    transform: scale(0.96);
+  }
+
+  .z-menubar-item {
+    border-radius: 0.4rem;
+    transition: background-color 0.12s ease, color 0.12s ease;
+  }
+
+  .z-menubar-item:hover,
+  .z-menubar-item[data-open='true'] {
+    background: hsl(var(--z-accent) / 0.85);
+    color: #fff;
+  }
+
+  .z-menu-item {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 0.6rem;
+    border-radius: 0.45rem;
+    padding: 0.3rem 0.55rem;
+    text-align: left;
+    font-size: 0.8125rem;
+    transition: background-color 0.1s ease, color 0.1s ease;
+  }
+
+  .z-menu-item:hover:not(:disabled) {
+    background: hsl(var(--z-accent));
+    color: #fff;
+  }
+
+  .z-menu-item:disabled {
+    opacity: 0.4;
+  }
+
+  /* ---------- controls ---------- */
+  .z-input {
+    background: hsl(var(--z-surface-soft));
+    border: 1px solid hsl(var(--z-border));
+    color: hsl(var(--z-text));
+    border-radius: 0.7rem;
+    outline: none;
+    transition: border-color 0.16s ease, box-shadow 0.16s ease, background-color 0.16s ease;
+  }
+
+  .z-input:focus {
+    border-color: hsl(var(--z-accent) / 0.55);
+    box-shadow: 0 0 0 3px hsl(var(--z-accent) / 0.16);
+    background: hsl(var(--z-surface-strong) / 0.6);
+  }
+
+  .z-input::placeholder {
+    color: hsl(var(--z-text-dim));
+  }
+
+  .z-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 0.35rem;
+    border-radius: 99px;
+    background: hsl(var(--z-border-strong)) no-repeat;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .z-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 1.05rem;
+    width: 1.05rem;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 1px 4px rgb(0 0 0 / 0.36), 0 0 0 0.5px rgb(0 0 0 / 0.1);
+    transition: transform 0.12s ease;
+  }
+
+  .z-slider:active::-webkit-slider-thumb {
+    transform: scale(1.12);
+  }
+
+  .z-slider::-moz-range-thumb {
+    height: 1.05rem;
+    width: 1.05rem;
+    border: none;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 1px 4px rgb(0 0 0 / 0.36);
+  }
+
+  .z-seg {
+    display: inline-flex;
+    padding: 0.15rem;
+    border-radius: 0.7rem;
+    background: hsl(var(--z-surface-soft));
+    border: 1px solid hsl(var(--z-border));
+    gap: 0.15rem;
+  }
+
+  .z-seg-item {
+    border-radius: 0.55rem;
+    padding: 0.28rem 0.6rem;
+    font-size: 0.75rem;
+    color: hsl(var(--z-text-dim));
+    transition: background-color 0.14s ease, color 0.14s ease;
+  }
+
+  .z-seg-item:hover {
+    color: hsl(var(--z-text));
+  }
+
+  .z-seg-item[data-active='true'] {
+    background: hsl(var(--z-surface-solid) / 0.9);
+    color: hsl(var(--z-text));
+    box-shadow: 0 1px 3px rgb(0 0 0 / 0.28);
+  }
+
+  /* ---------- scrollbars ---------- */
+  .z-scroll::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .z-scroll::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .z-scroll::-webkit-scrollbar-thumb {
+    background: hsl(0 0% 60% / 0.32);
+    border-radius: 99px;
+  }
+
+  .z-scroll::-webkit-scrollbar-thumb:hover {
+    background: hsl(0 0% 75% / 0.46);
+  }
+
+  .z-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(0 0% 60% / 0.32) transparent;
+  }
+
+  /* ---------- wallpaper helpers ---------- */
+  .z-grain {
+    background-image: radial-gradient(hsl(0 0% 100% / 0.05) 1px, transparent 0);
+    background-size: 26px 26px;
+  }
+
+  .z-on-wallpaper {
+    color: #fff;
+    text-shadow: 0 1px 14px rgb(0 0 0 / 0.7), 0 1px 2px rgb(0 0 0 / 0.5);
+  }
+
+  .z-mono {
+    font-family: var(--font-mono);
+  }
+
+  /* ---------- markdown (Notes preview) ---------- */
+  .z-md h1 {
+    font-size: 1.7em;
+    font-weight: 600;
+    margin: 0.6em 0 0.35em;
+  }
+
+  .z-md h2 {
+    font-size: 1.35em;
+    font-weight: 600;
+    margin: 0.9em 0 0.3em;
+  }
+
+  .z-md h3 {
+    font-size: 1.15em;
+    font-weight: 600;
+    margin: 0.9em 0 0.25em;
+  }
+
+  .z-md p {
+    margin: 0.55em 0;
+  }
+
+  .z-md a {
+    color: hsl(var(--z-accent));
+    text-decoration: underline;
+  }
+
+  .z-md ul {
+    list-style: disc;
+    padding-left: 1.35em;
+    margin: 0.5em 0;
+  }
+
+  .z-md ol {
+    list-style: decimal;
+    padding-left: 1.35em;
+    margin: 0.5em 0;
+  }
+
+  .z-md li {
+    margin: 0.2em 0;
+  }
+
+  .z-md code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: hsl(var(--z-surface-soft));
+    padding: 0.1em 0.35em;
+    border-radius: 0.35em;
+  }
+
+  .z-md pre {
+    background: rgb(0 0 0 / 0.3);
+    padding: 0.9em 1em;
+    border-radius: 0.75em;
+    overflow-x: auto;
+    margin: 0.7em 0;
+  }
+
+  .z-md pre code {
+    background: none;
+    padding: 0;
+  }
+
+  .z-md blockquote {
+    border-left: 3px solid hsl(var(--z-accent) / 0.5);
+    padding-left: 0.9em;
+    color: hsl(var(--z-text-dim));
+    margin: 0.7em 0;
+  }
+
+  .z-md hr {
+    border-color: hsl(var(--z-border));
+    margin: 1.2em 0;
+  }
+
+  .z-md strong {
+    font-weight: 600;
+  }
+
+  /* ---------- motion ---------- */
+  @keyframes z-float {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    50% {
+      transform: translate3d(3%, -4%, 0) scale(1.09);
+    }
+  }
+
+  @keyframes z-float-alt {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0) scale(1.06);
+    }
+    50% {
+      transform: translate3d(-5%, 3%, 0) scale(1);
+    }
+  }
+
+  @keyframes z-shimmer {
+    0% {
+      transform: translateX(-130%);
+    }
+    100% {
+      transform: translateX(240%);
+    }
+  }
+
+  @keyframes z-pulse {
+    0%,
+    100% {
+      opacity: 0.5;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes z-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes z-rise {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes z-pop {
+    0% {
+      transform: scale(0.9);
+      opacity: 0;
+    }
+    60% {
+      transform: scale(1.03);
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  @keyframes z-bounce {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-18%);
+    }
+  }
+
+  @keyframes z-glare {
+    0% {
+      transform: translateX(-60%) skewX(-18deg);
+      opacity: 0;
+    }
+    30% {
+      opacity: 0.5;
+    }
+    100% {
+      transform: translateX(220%) skewX(-18deg);
+      opacity: 0;
+    }
+  }
+
+  @keyframes z-eq {
+    0%,
+    100% {
+      transform: scaleY(0.3);
+    }
+    50% {
+      transform: scaleY(1);
+    }
+  }
+
+  @keyframes z-wobble {
+    0%,
+    100% {
+      transform: skewX(0deg);
+    }
+    25% {
+      transform: skewX(-2deg);
+    }
+    75% {
+      transform: skewX(2deg);
+    }
+  }
+
+  .z-float {
+    animation: z-float 26s ease-in-out infinite;
+  }
+
+  .z-float-alt {
+    animation: z-float-alt 32s ease-in-out infinite;
+  }
+
+  .z-shimmer {
+    animation: z-shimmer 2.4s ease-in-out infinite;
+  }
+
+  .z-pulse {
+    animation: z-pulse 2.6s ease-in-out infinite;
+  }
+
+  .z-spin-slow {
+    animation: z-spin 1.1s linear infinite;
+  }
+
+  .z-rise {
+    animation: z-rise 0.35s cubic-bezier(0.22, 0.9, 0.24, 1) both;
+  }
+
+  .z-pop {
+    animation: z-pop 0.32s cubic-bezier(0.22, 0.9, 0.24, 1) both;
+  }
+
+  .z-glare {
+    animation: z-glare 1.6s ease-out;
+  }
+
+  /* equalizer bars for the music widget */
+  .z-eq {
+    transform-origin: bottom;
+    animation: z-eq 0.9s ease-in-out infinite;
+  }
+
+  .z-reduce .z-float,
+  .z-reduce .z-float-alt,
+  .z-reduce .z-shimmer,
+  .z-reduce .z-pulse,
+  .z-reduce .z-spin-slow,
+  .z-reduce .z-rise,
+  .z-reduce .z-pop,
+  .z-reduce .z-glare,
+  .z-reduce .z-eq {
+    animation: none !important;
+  }
+
+  /* ---------- auth pages: retint shadcn controls into the glass theme ---------- */
+  .z-auth input {
+    background-color: hsl(0 0% 100% / 0.05);
+    border-color: hsl(var(--z-border));
+    color: hsl(var(--z-text));
+  }
+  .z-auth input::placeholder {
+    color: hsl(var(--z-text-dim));
+  }
+  .z-auth input:focus-visible {
+    border-color: hsl(var(--z-accent) / 0.6);
+    box-shadow: 0 0 0 3px hsl(var(--z-accent) / 0.18);
+    outline: none;
+  }
+  .z-auth label {
+    color: hsl(var(--z-text) / 0.85);
+  }
+  .z-auth .bg-primary {
+    background-color: hsl(var(--z-accent));
+    color: #fff;
+  }
+  .z-auth .bg-primary:hover {
+    background-color: hsl(var(--z-accent) / 0.88);
+  }
+  .z-auth .bg-background {
+    background-color: hsl(0 0% 100% / 0.04);
+  }
+  .z-auth .bg-card {
+    background-color: hsl(248 30% 9% / 0.92);
+  }
+  .z-auth .text-primary {
+    color: hsl(var(--z-accent));
+  }
+  .z-auth .text-muted-foreground {
+    color: hsl(var(--z-text-dim));
+  }
+  .z-auth .border-input {
+    border-color: hsl(var(--z-border));
+  }
+  .z-auth .bg-destructive\/10 {
+    background-color: hsl(0 84% 60% / 0.16);
+    color: hsl(0 90% 78%);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .z-float,
+    .z-float-alt,
+    .z-shimmer,
+    .z-pulse,
+    .z-rise,
+    .z-pop,
+    .z-glare,
+    .z-eq {
+      animation: none !important;
+    }
+  }
+}

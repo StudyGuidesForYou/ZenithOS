@@ -1,0 +1,64 @@
+{
+  "name": "Profile",
+  "type": "object",
+  "properties": {
+    "username": {
+      "type": "string",
+      "title": "Username",
+      "minLength": 3,
+      "maxLength": 24
+    },
+    "handle": {
+      "type": "string",
+      "title": "User ID",
+      "description": "Lowercase handle, unique across the app",
+      "minLength": 3,
+      "maxLength": 24
+    },
+    "user_id": {
+      "type": "string",
+      "title": "Owner platform user id",
+      "description": "Links this profile to the auth user"
+    },
+    "avatar": {
+      "type": "string",
+      "title": "Avatar URL",
+      "format": "uri"
+    }
+  },
+  "required": [
+    "username",
+    "handle",
+    "user_id"
+  ],
+  "rls": {
+    "read": {},
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}
